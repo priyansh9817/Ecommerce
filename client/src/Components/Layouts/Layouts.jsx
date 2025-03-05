@@ -25,7 +25,7 @@ const Layouts = ({ children, title, description, keywords, author }) => {
         </div>
     )
 };
-
+// For SEO 
 Layouts.defaultProps = {
     title: 'Ecommerce app',
     description: 'mern stack project ',

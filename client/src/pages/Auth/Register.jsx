@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setpassword] = useState("")
   const [phone, setphone] = useState("")
   const [address, setaddress] = useState("")
+  const [question, setquestion] = useState("")
   const  navigate =  useNavigate()   // yaha navigate variable iss liye banye hai ki jab form submit karte hi login page pe redirect ho jaaye 
   // function for form handlings 
   const handleSubmit = async (e) => {
@@ -19,7 +20,7 @@ const Register = () => {
     // console.log(name,Email,Password,Address,Phone)
     // toast.success('Register suggesfully')   this before connecting frontend
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, { name, email, password, phone, address });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, { name, email, password, phone, address,question });
       if(res.data.success){
         toast.success(res.data.message);
         navigate("/login");
@@ -61,7 +62,9 @@ const Register = () => {
           <div className="mb-3">
             <input type="address" value={address} onChange={(e) => setaddress(e.target.value)} className="form-control"  placeholder='Enter Your Address' required />
           </div>
-
+          <div className="mb-3">
+            <input type="text" value={question} onChange={(e) => setquestion(e.target.value)} className="form-control"  placeholder='What is your fav movie' required />
+          </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
