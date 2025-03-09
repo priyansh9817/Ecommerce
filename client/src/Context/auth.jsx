@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
+
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -8,20 +9,20 @@ const AuthProvider = ({ children }) => {
     token: "",
   });
 
-  // default axios 
-  axios.defaults.headers.common['Authorization']= auth?.token  // jo bhi request jaye gi usme headers hoga 
+  // Load token from localStorage
   useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {
       const parseData = JSON.parse(data);
-      setAuth({
-        ...auth,
-        user: parseData.user,
-        token: parseData.token,
-      });
+      setAuth(parseData);
+
+      // ✅ Set axios header only if token exists
+      if (parseData.token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${parseData.token}`;
+      }
     }
-    //eslint-disable
   }, []);
+
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
       {children}
@@ -29,7 +30,7 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-// custom hook
+// Custom hook for auth
 const useAuth = () => useContext(AuthContext);
 
 export { useAuth, AuthProvider };

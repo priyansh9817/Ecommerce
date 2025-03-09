@@ -1,6 +1,6 @@
 import React from 'react'
 import Layouts from '../../Components/Layouts/Layouts'
-const Dashboard = () => {
+const UserDashboard = () => {
   return (
     <Layouts title={"User Dasboard"}>
         <h1>Dashboards</h1>
@@ -8,4 +8,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard;
+export default UserDashboard;

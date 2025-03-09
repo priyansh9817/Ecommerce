@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 
-const ForgotPasssword = () => {
+const ForgotPassword = () => {  // ✅ Fixed component name
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [question, setquestion] = useState("");
+  const [answer, setAnswer] = useState(""); // ✅ Fixed variable name format
 
   const navigate = useNavigate();
 
@@ -16,23 +16,25 @@ const ForgotPasssword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/forgotpassword", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/forgotpassword`, {
         email,
-        newPassword,
-        question,
+        answer,
+        newPassword},// ✅ Match backend variable name
+        { headers: { "Content-Type": "application/json" } 
       });
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
 
+      if (res?.data?.success) {
+        toast.success(res.data.message);
         navigate("/login");
       } else {
-        toast.error(res.data.message);
+        toast.error(res.data?.message || "Password reset failed");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
+
   return (
     <Layout title={"Forgot Password - Ecommerce APP"}>
       <div className="form-container ">
@@ -45,7 +47,6 @@ const ForgotPasssword = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
               placeholder="Enter Your Email "
               required
             />
@@ -53,11 +54,10 @@ const ForgotPasssword = () => {
           <div className="mb-3">
             <input
               type="text"
-              value={question}
-              onChange={(e) => setquestion(e.target.value)}
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
-              placeholder="Enter Your favorite Movie Name "
+              placeholder="Enter Your Favorite Movie Name "
               required
             />
           </div>
@@ -67,8 +67,7 @@ const ForgotPasssword = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Enter Your Password"
+              placeholder="Enter Your New Password"
               required
             />
           </div>
@@ -82,4 +81,5 @@ const ForgotPasssword = () => {
   );
 };
 
-export default ForgotPasssword;
+export default ForgotPassword; // ✅ Fixed export name
+
