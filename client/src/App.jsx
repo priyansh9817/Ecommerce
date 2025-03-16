@@ -13,6 +13,11 @@ import PrivateRoute from "./Components/Routes/Private"
 import Forgotpassword from "./pages/Auth/Forgotpassword"
 import AdminRoute from "./Components/Routes/AdminRout"
 import AdminDashboard from "./pages/Admin/AdminDashboard"
+import CreateCategory from "./pages/Admin/CreateCategory"// for admin
+import CreateProduct from "./pages/Admin/CreateProduct"
+import User from "./pages/Admin/User"
+import Orders from "./pages/User/Orders" // for user
+import Profile from "./pages/User/Profile"
 
 
 
@@ -28,10 +33,17 @@ function App() {
         {/* Private routes ke liye yaha use kar rahe hai kon saa route private rakha h kon saa nhi Auth ke basic pe acces ho  */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
+          <Route path="user/orders" element={<Orders/>} />
+          <Route path="user/profile" element={<Profile />} />
         </Route>
         {/* Private routes for Admin  */}
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />
+          <Route path="admin/users" element={<User />} />
+          
+
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/contact" element={<Contact />}></Route>

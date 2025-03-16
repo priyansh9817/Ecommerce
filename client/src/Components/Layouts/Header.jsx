@@ -2,6 +2,9 @@ import React from 'react'
 import {NavLink,Link} from 'react-router-dom'
 import { TfiShoppingCart } from "react-icons/tfi";
 import { useAuth } from '../../Context/auth';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
@@ -57,10 +60,9 @@ const Header = () => {
                     </NavLink>
                     <ul className="dropdown-menu">
                       <li>
-                        <NavLink to={`/dashboard/${auth?.user.role === 1 ? "admin" : "user"}`} // yaha pe ham 2 dashborad banye hai to iss liye conditions kaa use kar rahe hai 
-                        className="dropdown-item">
-                          Dashboard
-                        </NavLink>
+                      <NavLink to={`/dashboard/${auth?.user.role === "admin" ? "admin" : "user"}`} className="dropdown-item">
+                        Dashboard
+                      </NavLink>
                       </li>
                       <li>
                         <NavLink
