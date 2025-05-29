@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layouts from '../../Components/Layouts/Layouts'
+import Layout from '../../components/Layout/Layout'
 import axios from "axios"
 // react notificatio
 import toast from 'react-hot-toast';
@@ -36,7 +36,7 @@ const Register = () => {
 
   };
   return (
-    <Layouts title='Register - Ecommerce App'>
+    <Layout title='Register - Ecommerce App'>
       <div className="form-container ">
         <div className='register'>
           <h1>Register Page</h1>
@@ -75,7 +75,7 @@ const Register = () => {
           </form>
         </div>
       </div>
-    </Layouts>
+    </Layout>
 
   )
 }

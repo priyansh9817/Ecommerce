@@ -1,9 +1,9 @@
 import React from 'react'
-import Layouts from '../../Components/Layouts/Layouts'
-import UserMenu from '../../Components/Layouts/UserMenu'
+import Layout from '../../components/Layout/Layout'
+import UserMenu from '../../components/Layout/UserMenu'
 const Profile = () => {
   return (
-    <Layouts title={"Your Order"}>
+    <Layout title={"Your Order"}>
         <div className="container-fluid m-3 p-3">
         <div className='row'>
                 <div className='col-md-3'>
@@ -14,7 +14,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-    </Layouts>
+    </Layout>
   )
 }
 

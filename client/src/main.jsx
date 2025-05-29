@@ -8,6 +8,7 @@ import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom";
 // configure the authcontext 
 import { AuthProvider } from './Context/auth.jsx';
+import "antd/dist/reset.css";
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
     <BrowserRouter>

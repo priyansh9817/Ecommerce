@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Layout from '../../Components/Layouts/Layouts'; // ✅ Fixed import name
+import Layout from '../../components/Layout/Layout'; // ✅ Fixed import name
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
-import { useAuth } from "../../Context/auth";
+import { useAuth } from "../../context/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -71,7 +71,7 @@ const Login = () => {
 
           {/* Forgot Password Button (Fixed to prevent form submission) */}
           <div className="mb-3">
-            <button type="button" className="btn btn-primary" onClick={() => navigate("/forgotpassword")}>
+            <button type="button" className="btn btn-primary" onClick={() => navigate("/forgot-password")}>
               Forgot Password
             </button>
           </div>

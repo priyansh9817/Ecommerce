@@ -1,9 +1,9 @@
 import React from 'react'
-import Layouts from '../../Components/Layouts/Layouts'
-import UserMenu from '../../Components/Layouts/UserMenu'
+import Layout from '../../components/Layout/Layout'
+import UserMenu from '../../components/Layout/UserMenu'
 const Orders = () => {
   return (
-    <Layouts title={"YOUR Orders"}>
+    <Layout title={"YOUR Orders"}>
         <div className="container-fluid p-3 m-3">
             <div className='row'>
                 <div className='col-md-3'>
@@ -14,7 +14,7 @@ const Orders = () => {
                 </div>
             </div>
         </div>
-    </Layouts>
+    </Layout>
   )
 }
 

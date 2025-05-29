@@ -1,9 +1,9 @@
 import React from 'react'
-import Layouts from '../Components/Layouts/Layouts'
+import Layout from '../components/Layout/Layout'
 
 const About = () => {
   return (
-    <Layouts title={"About us - Ecommerce"}>
+    <Layout title={"About us - Ecommerce"}>
       <div className="row contactus ">
         <div className="col-md-6 ">
           <img
@@ -23,7 +23,7 @@ const About = () => {
           </p>
         </div>
       </div>
-    </Layouts>
+    </Layout>
   )
 }
 

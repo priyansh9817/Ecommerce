@@ -1,9 +1,9 @@
 import React from 'react'
-import Layouts from '../Components/Layouts/Layouts'
+import Layout from '../components/Layout/Layout'
 
 const Policy = () => {
   return (
-    <Layouts>
+    <Layout>
       <div className="row contactus ">
         <div className="col-md-6 ">
           <img
@@ -22,7 +22,7 @@ const Policy = () => {
           <p>add privacy policy</p>
         </div>
       </div>
-    </Layouts>
+    </Layout>
   )
 }
 

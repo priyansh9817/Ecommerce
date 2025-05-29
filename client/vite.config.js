@@ -5,6 +5,13 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
     host: "0.0.0.0",  // Allows access from other devices
     port: 5173,       // Use a fixed port
     strictPort: false, // If 5173 is unavailable, Vite will use the next available port

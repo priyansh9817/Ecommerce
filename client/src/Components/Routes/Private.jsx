@@ -1,50 +1,27 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../../Context/auth";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth"; // Note ye auth.jsx se useAuth ko import kiya gaya hai jo ki context api ka part hai
+import { Outlet } from "react-router-dom"; // Note ye routing ke functionallities ke liye hota hai agar ye {const [auth, setAuth] = useAuth();}
 import axios from "axios";
-import Spinner from "../Spinner";
+import Spinner from "../Spinner"; // Spinner component ko import kiya gaya hai jo ki loading state dikhata hai
+// Note ye PrivateRoute component ko create kiya gaya hai jo ki user ke authentication ko check karta hai aur agar user authenticated hai to Outlet render karega
 
 export default function PrivateRoute() {
+  
   const [ok, setOk] = useState(false);
-  const [auth] = useAuth(); // No need to destructure setAuth here
-  const navigate = useNavigate();
+  const [auth, setAuth] = useAuth(); // to get useAuth from auth.jsx
 
   useEffect(() => {
     const authCheck = async () => {
-      try {
-        const token = auth?.token;
-        if (!token) {
-          setOk(false);
-          navigate("/login");
-          return;
-        }
-
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/auth/user-auth`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach token in headers
-          },
-          withCredentials: true,
-        });
-
-        if (res.data.ok) {
-          setOk(true);
-        } else {
-          setOk(false);
-          navigate("/login");
-        }
-      } catch (error) {
-        console.error("Auth check failed:", error);
+      const res = await axios.get("/api/v1/auth/user-auth"); 
+      if (res.data.ok) {
+        setOk(true);
+      } else {
         setOk(false);
-        navigate("/login");
       }
     };
+    if (auth?.token) authCheck();
+  }, [auth?.token]);
 
-    if (auth?.token) {
-      authCheck();
-    } else {
-      navigate("/login");
-    }
-  }, [auth?.token, navigate]);
+  return ok ? <Outlet /> : <Spinner />;
 
-  return ok ? <Outlet /> : <Spinner path="" />;
 }

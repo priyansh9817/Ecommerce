@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Layout from "../../Components/Layouts/Layouts";
+import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 
-const ForgotPassword = () => {  // ✅ Fixed component name
+const ForgotPasssword = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [answer, setAnswer] = useState(""); // ✅ Fixed variable name format
+  const [answer, setAnswer] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,25 +16,25 @@ const ForgotPassword = () => {  // ✅ Fixed component name
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/forgotpassword`, {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/auth/forgot-password`,
+        {
         email,
+        newPassword,
         answer,
-        newPassword},// ✅ Match backend variable name
-        { headers: { "Content-Type": "application/json" } 
       });
+      if (res && res.data.success) {
+        toast.success(res.data && res.data.message);
 
-      if (res?.data?.success) {
-        toast.success(res.data.message);
         navigate("/login");
       } else {
-        toast.error(res.data?.message || "Password reset failed");
+        toast.error(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error("Something went wrong");
     }
   };
-
   return (
     <Layout title={"Forgot Password - Ecommerce APP"}>
       <div className="form-container ">
@@ -47,6 +47,7 @@ const ForgotPassword = () => {  // ✅ Fixed component name
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
+              id="exampleInputEmail1"
               placeholder="Enter Your Email "
               required
             />
@@ -57,7 +58,8 @@ const ForgotPassword = () => {  // ✅ Fixed component name
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
-              placeholder="Enter Your Favorite Movie Name "
+              id="exampleInputEmail1"
+              placeholder="Enter Your favorite Sport Name "
               required
             />
           </div>
@@ -67,7 +69,8 @@ const ForgotPassword = () => {  // ✅ Fixed component name
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               className="form-control"
-              placeholder="Enter Your New Password"
+              id="exampleInputPassword1"
+              placeholder="Enter Your Password"
               required
             />
           </div>
@@ -81,5 +84,4 @@ const ForgotPassword = () => {  // ✅ Fixed component name
   );
 };
 
-export default ForgotPassword; // ✅ Fixed export name
-
+export default ForgotPasssword;

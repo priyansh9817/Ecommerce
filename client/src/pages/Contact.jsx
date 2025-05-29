@@ -1,9 +1,9 @@
 import React from "react";
-import Layouts from "../Components/Layouts/Layouts";
+import Layout from "../components/Layout/Layout";
 import { BiMailSend, BiPhoneCall, BiSupport } from "react-icons/bi";
 const Contact = () => {
   return (
-    <Layouts title={"Contact us - Ecommerce"}>
+    <Layout title={"Contact us - Ecommerce"}>
       <div className="row contactus ">
         <div className="col-md-6 ">
           <img
@@ -29,7 +29,7 @@ const Contact = () => {
           </p>
         </div>
       </div>
-    </Layouts>
+    </Layout>
   );
 };
 
