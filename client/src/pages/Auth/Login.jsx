@@ -6,6 +6,10 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
+axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
+  withCredentials: true
+});
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

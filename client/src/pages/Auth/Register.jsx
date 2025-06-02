@@ -6,6 +6,10 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'   // htmlFor navigate aab hm chate hai register karte hi login page pe redirect ho to iska use karete hai ye ek react hook hai  
 import "../../styles/Authstyles.css";
 
+axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
+  withCredentials: true
+});
+
 const Register = () => {
   const [name, setName] = useState("")
   const [email, setemail] = useState("")
@@ -22,7 +26,7 @@ const Register = () => {
     // toast.success('Register suggesfully')   this before connecting frontend
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, { name, email, password, phone, address, answer,role });
-      if (res.data.success) {
+      if (res.data.success) { 
         toast.success(res.data.message);
         navigate("/login");
       }
@@ -69,6 +73,7 @@ const Register = () => {
             <select value={role} onChange={(e) => setrole(e.target.value)} className="form-control mb-3" required>
               <option value="" disabled>Select Role</option>
               <option value="admin">Admin</option>
+            
               <option value="user">User</option>
             </select>
             <button type="submit" className="btn btn-primary">Submit</button>
