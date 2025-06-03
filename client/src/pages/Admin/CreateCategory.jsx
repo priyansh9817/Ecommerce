@@ -68,8 +68,8 @@ const CreateCategory = () => {
       toast.error("Somtihing went wrong");
     }
   };
-  //delete category
-  const handleDelete = async (pid) => {
+   //delete category
+  const handleDelete = async (pId) => {
     try {
       const { data } = await axios.delete(
         `/api/v1/category/delete-category/${pId}`
