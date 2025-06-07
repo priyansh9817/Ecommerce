@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminMenu from "../../components/Layout/AdminMenu";
 import Layout from "./../../components/Layout/Layout";
-import axios from "axios";
+import axios from "axios";  // for making API calls network requests
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 const Products = () => {
@@ -14,7 +14,7 @@ const Products = () => {
       setProducts(data.products);
     } catch (error) {
       console.log(error);
-      toast.error("Someething Went Wrong");
+      toast.error("Something Went Wrong");
     }
   };
 

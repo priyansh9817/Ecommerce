@@ -33,7 +33,12 @@ const UpdateProduct = () => {
       setPrice(data.product.price);
       setQuantity(data.product.quantity);
       setShipping(data.product.shipping);
-      setCategory(data.product.category._id);
+      // if category is an object, get the _id
+      setCategory(
+  typeof data.product.category === "object"
+    ? data.product.category._id
+    : data.product.category
+);
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +64,7 @@ const UpdateProduct = () => {
     getAllCategory();
   }, []);
 
-  //create product function
+  //Update product function
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -70,8 +75,8 @@ const UpdateProduct = () => {
       productData.append("quantity", quantity);
       photo && productData.append("photo", photo);
       productData.append("category", category);
-      const { data } = axios.put(
-        `/api/v1/product/update-product/${id}`,
+      const { data } = await axios.put(
+        `/api/v1/product/update-product/${id}`, // get the id from state
         productData
       );
       if (data?.success) {
