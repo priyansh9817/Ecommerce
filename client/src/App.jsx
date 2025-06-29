@@ -20,11 +20,12 @@ import Products from  "./pages/Admin/Products"// for admin
 import Users from "./pages/Admin/Users"
 import Orders from "./pages/user/Orders" // for user
 import Profile from "./pages/user/Profile"
-import Search from "./pages/Search.jsx"
+import Search from "./pages/Search.jsx";
 import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
-
+import CartPage from "./pages/CartPage.jsx"
+import TestDropIn from "./pages/TestDropIn.jsx";
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<HomePages />}></Route>
         <Route path="/product/:slug" element={<ProductDetails />} />
          <Route path="/categories" element={<Categories />} />
+         <Route path="/cart" element={<CartPage />} />
           <Route path="/category/:slug" element={<CategoryProduct />} />
         <Route path="/search" element={<Search />} />
         <Route path="/about" element={<About />}></Route>
@@ -56,13 +58,14 @@ function App() {
            <Route path="admin/product/:slug" element={<UpdateProduct/>} />
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/users" element={<Users />} />
-          
+           <Route path="admin/orders" element={<Orders />} />
 
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="*" element={<Pagenotfound />}></Route>
+        <Route path="/test-payment" element={<TestDropIn />} />
       </Routes>
     </>
   )

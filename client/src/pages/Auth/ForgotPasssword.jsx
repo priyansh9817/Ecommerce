@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 
-axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
-  withCredentials: true
-});
+
 
 const ForgotPasssword = () => {
   const [email, setEmail] = useState("");

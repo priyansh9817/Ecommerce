@@ -3,9 +3,6 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
-  withCredentials: true
-});
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({

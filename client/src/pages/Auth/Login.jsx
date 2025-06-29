@@ -6,9 +6,7 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
-axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
-  withCredentials: true
-});
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,8 +38,11 @@ const Login = () => {
         toast.error(res.data?.message || "Login failed");
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong");
+      if (error.response?.status === 401) {
+        toast.error("Unauthorized. Please login again.");
+        localStorage.removeItem("auth");
+        navigate("/login");
+      }
     }
   };
 

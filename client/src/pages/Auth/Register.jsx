@@ -6,9 +6,6 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'   // htmlFor navigate aab hm chate hai register karte hi login page pe redirect ho to iska use karete hai ye ek react hook hai  
 import "../../styles/Authstyles.css";
 
-axios.get('http://localhost:4000/api/v1/auth/admin-auth', {
-  withCredentials: true
-});
 
 const Register = () => {
   const [name, setName] = useState("")
