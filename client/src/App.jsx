@@ -20,6 +20,11 @@ import Products from  "./pages/Admin/Products"// for admin
 import Users from "./pages/Admin/Users"
 import Orders from "./pages/user/Orders" // for user
 import Profile from "./pages/user/Profile"
+import Search from "./pages/Search.jsx"
+import ProductDetails from "./pages/ProductDetails";
+import Categories from "./pages/Categories";
+import CategoryProduct from "./pages/CategoryProduct";
+
 
 
 
@@ -30,6 +35,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePages />}></Route>
+        <Route path="/product/:slug" element={<ProductDetails />} />
+         <Route path="/categories" element={<Categories />} />
+          <Route path="/category/:slug" element={<CategoryProduct />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/about" element={<About />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/forgot-password" element={<ForgotPasssword />} />
