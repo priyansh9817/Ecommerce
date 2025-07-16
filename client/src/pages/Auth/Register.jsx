@@ -5,6 +5,9 @@ import axios from "axios"
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'   // htmlFor navigate aab hm chate hai register karte hi login page pe redirect ho to iska use karete hai ye ek react hook hai  
 import "../../styles/Authstyles.css";
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode'; // ✅ CORRECT
+import { useAuth } from "../../context/auth";
 
 
 const Register = () => {
@@ -16,14 +19,45 @@ const Register = () => {
   const [answer, setanswer] = useState("")
   const [role, setrole] = useState("")
   const navigate = useNavigate()   // yaha navigate variable iss liye banye hai ki jab form submit karte hi login page pe redirect ho jaaye 
+  const [auth, setAuth] = useAuth();
+  // Google OAuth registration handler
+ const handleGoogleRegister = async (credentialResponse) => {
+  const token = credentialResponse.credential;
+  const decoded = jwtDecode(token); // optional
+
+  try {
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/google-register`, {
+      token,
+    });
+
+    if (data?.success) {
+      toast.success("Google account registered successfully!");
+      setAuth({
+        user: data.user,
+        token: data.token,
+      });
+      localStorage.setItem("auth", JSON.stringify(data));
+      navigate("/");
+    } else {
+      toast.error(data.message);
+    }
+  } catch (err) {
+  console.error(err);
+  const msg = err.response?.data?.message || "Google registration failed.";
+  toast.error(msg);
+}
+
+};
+
+
   // function for form handlings 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(name,Email,Password,Address,Phone)
     // toast.success('Register suggesfully')   this before connecting frontend
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, { name, email, password, phone, address, answer,role });
-      if (res.data.success) { 
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, { name, email, password, phone, address, answer, role });
+      if (res.data.success) {
         toast.success(res.data.message);
         navigate("/login");
       }
@@ -38,7 +72,7 @@ const Register = () => {
   };
   return (
     <Layout title='Register - Ecommerce App'>
-      <div className="form-container ">
+      <div className="form-container register-container">
         <div className='register'>
           <h1>Register Page</h1>
           <form onSubmit={handleSubmit}>
@@ -70,11 +104,25 @@ const Register = () => {
             <select value={role} onChange={(e) => setrole(e.target.value)} className="form-control mb-3" required>
               <option value="" disabled>Select Role</option>
               <option value="admin">Admin</option>
-            
+
               <option value="user">User</option>
             </select>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary ">Submit</button>
+
+            <div className="mt-3">
+              <h5 style={{ textAlign: "center" }}>OR</h5>
+              <div className="d-flex justify-content-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleRegister}
+                  onError={() => {
+                    toast.error("Google registration failed");
+                  }}
+                />
+              </div>
+            </div>
+
           </form>
+
         </div>
       </div>
     </Layout>

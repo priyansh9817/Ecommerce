@@ -5,6 +5,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
+
 
 
 
@@ -84,10 +88,50 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             LOGIN
           </button>
+          <div className="mt-3 mb-3">
+            <p className="text-center">OR</p>
+            <GoogleLogin 
+            onSuccess={async (credentialResponse) => {
+              const token = credentialResponse.credential;
+              const decoded = jwtDecode(token);
+
+              try {
+                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/google-login`, {
+                  token,
+                });
+
+                if (data?.success) {
+                  toast.success("Google login success!");
+                  setAuth({
+                    user: data.user,
+                    token: data.token,
+                  });
+                  localStorage.setItem("auth", JSON.stringify(data));
+                  navigate("/");
+                } else {
+                  toast.error("Google login failed");
+                }
+              } catch (err) {
+                console.error(err);
+                toast.error("User not registered, please register first.");
+              }
+            }}
+            onError={() => {
+              toast.error("Google login failed");
+            }}
+          />
+          </div>
+          <div className="register-link">
+        <p>
+          Don't have an account?{" "}
+          <span onClick={() => navigate("/register")}>Register</span>
+        </p>
+      </div>
         </form>
       </div>
     </Layout>
   );
 };
+
 
 export default Login;

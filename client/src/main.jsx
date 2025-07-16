@@ -11,6 +11,7 @@ import { AuthProvider } from './context/auth.jsx';
 import { SearchProvider } from './context/search.jsx';
 import { CartProvider } from './context/cart.jsx';
 import "antd/dist/reset.css";
+import { GoogleOAuthProvider } from '@react-oauth/google'; // for Google OAuth
 
 import axios from "axios"; // ✅ Add this if not already imported
 
@@ -21,6 +22,7 @@ if (authData?.token) {
 }
 <script src="https://js.braintreegateway.com/web/dropin/1.33.7/js/dropin.min.js"></script>
 createRoot(document.getElementById('root')).render(
+  <GoogleOAuthProvider clientId="982596883914-607a30lha2kmbknue8ppes05c36b7d6c.apps.googleusercontent.com">
   <AuthProvider>
     <SearchProvider>
       <CartProvider>
@@ -30,4 +32,6 @@ createRoot(document.getElementById('root')).render(
       </CartProvider>
     </SearchProvider>
   </AuthProvider>
+</GoogleOAuthProvider>
+
 )
